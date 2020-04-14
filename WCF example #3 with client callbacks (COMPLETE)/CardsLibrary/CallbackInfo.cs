@@ -1,14 +1,7 @@
 ﻿/*
- * Program:         CardsLibrary.dll
- * Module:          CallbackInfo.cs
- * Date:            Mar 23, 2020
- * Author:          T. Haworth
- * Description:     The CallbackInfo class represents a WCF data contract for sending
- *                  realtime updates to connected clients regarding changes to the 
- *                  state of the Shoe (service object).
- *                  
- *                  Note that we had to add a reference to the .NET assembly 
- *                  System.Runtime.Serialization to create a DataContract.
+ * Project:         Project2 Go fish
+ * Author:          ShengZhan, Stephan, Slav
+ * Date:            2020/04/13
  */
 
 using System;
@@ -21,6 +14,7 @@ using System.Runtime.Serialization;
 
 namespace CardsLibrary
 {
+
     [DataContract]
     public class CallbackInfo
     {

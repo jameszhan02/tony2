@@ -1,31 +1,7 @@
 ﻿/*
- * Program:         CardsLibrary.dll
- * Module:          Shoe.cs
- * Author:          T. Haworth
- * Date:            Mar 30, 2020
- * Description:     THIS VERSION IS UPDATED from the March 23 version because
- *                  there was a small bug in the Draw() method which caused the
- *                  Shoe to send the wrong card count to the clients (one less 
- *                  than the correct value). 
- *                  
- *                  THIS VERSION IS FURTHER UPDATED from the March 25 version 
- *                  to add the UnregisterFromCallbacks() method to the IShoe 
- *                  contract. A client calls when quitting so that its callback 
- *                  object gets removed from the callbacks collection to avoid 
- *                  having a "dangling reference" which can hang the application.
- * 
- *                  Defines a WCF service contract called IShoe as well as 
- *                  a Shoe class that implements the service. This is just 
- *                  a slightly modified version of the basic CardsLibrary 
- *                  example from Week 4 of the course. 
- *                  
- *                  Also defines a callback contract called ICallback that 
- *                  the client implements and which allows the service to
- *                  send realtime updates to the clients regarding changes to
- *                  the state of the Shoe. 
- *                  
- *                  Note that we had to add a reference to the .NET Framework 
- *                  assembly System.ServiceModel.dll.
+ * Project:         Project2 Go fish
+ * Author:          ShengZhan, Stephan, Slav
+ * Date:            2020/04/13
  */
 
 using System;
@@ -39,12 +15,12 @@ using System.ServiceModel;  // WCF types
 namespace CardsLibrary
 {
     // Define a Callback contract for the client to implement
-    [ServiceContract]
-    public interface ICallback
-    {
-        [OperationContract(IsOneWay = true)]
-        void UpdateGui(CallbackInfo info);
-    }
+    //[ServiceContract]
+    //public interface ICallback
+    //{
+    //    [OperationContract(IsOneWay = true)]
+    //    void UpdateGui(CallbackInfo info);
+    //}
 
 
     // Defines a service contract for the Shoe class

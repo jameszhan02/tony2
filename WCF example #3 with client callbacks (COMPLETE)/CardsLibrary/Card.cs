@@ -1,13 +1,7 @@
 ﻿/*
- * Program:         CardsLibrary.dll
- * Module:          Card.cs
- * Date:            Mar 23, 2020
- * Author:          T. Haworth
- * Description:     The Card class represents a WCF data contract that represents 
- *                  a standard playing card.
- *                  
- *                  Note that we had to add a reference to the .NET assembly 
- *                  System.Runtime.Serialization to create a DataContract.
+ * Project:         Project2 Go fish
+ * Author:          ShengZhan, Stephan, Slav
+ * Date:            2020/04/13
  */
 
 using System;
