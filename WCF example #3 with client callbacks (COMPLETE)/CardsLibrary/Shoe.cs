@@ -32,7 +32,6 @@ namespace CardsLibrary
         void Shuffle();
         [OperationContract] 
         Card Draw();
-        int NumDecks { [OperationContract] get; [OperationContract] set; }
         int NumCards { [OperationContract] get; }
         [OperationContract(IsOneWay = true)]
         void RegisterForCallbacks();
@@ -48,7 +47,6 @@ namespace CardsLibrary
         // Private attributes
         private List<Card> cards = null;
         private int cardIdx; // index for cards collection
-        private int numDecks;
         private static uint objCount = 0;
         private uint objNum;
         private HashSet<ICallback> callbacks = new HashSet<ICallback>();
@@ -60,7 +58,6 @@ namespace CardsLibrary
             Console.WriteLine($"Creating Shoe object #{objNum}");
 
             cards = new List<Card>();
-            numDecks = 1;   // default # of decks
             repopulate();
         }
 
@@ -100,8 +97,6 @@ namespace CardsLibrary
             cards = cards.OrderBy(card => rng.Next()).ToList();
             cardIdx = 0;
 
-            // Initiate callbacks
-            updateAllClients(true);
         }
 
         public Card Draw()
@@ -114,28 +109,11 @@ namespace CardsLibrary
             Card card = cards[cardIdx++];
 
             // Initiate callbacks
-            updateAllClients(false);
 
             return card;
         }
 
-        public int NumDecks
-        {
-            get
-            {
-                return numDecks;
-            }
-            set
-            {
-                // Only change modify this if the new value is different from
-                // the "old" value
-                if (numDecks != value)
-                {
-                    numDecks = value;
-                    repopulate();
-                }
-            }
-        }
+       
 
         public int NumCards
         {
@@ -151,14 +129,13 @@ namespace CardsLibrary
 
         private void repopulate()
         {
-            Console.WriteLine($"Shoe object #{objNum} Repopulating with {numDecks} Decks");
+            Console.WriteLine($"Shoe object #{objNum} Repopulating with ONLY 1 Decks");
 
             // Clear out the "old" cards
             cards.Clear();
 
             // Add new "new" cards
-            for (int d = 0; d < numDecks; ++d)
-            {
+
                 foreach (Card.SuitID s in Enum.GetValues(typeof(Card.SuitID)))
                 {
                     foreach (Card.RankID r in Enum.GetValues(typeof(Card.RankID)))
@@ -166,20 +143,12 @@ namespace CardsLibrary
                         cards.Add(new Card(s, r));
                     }
                 }
-            }
 
             // Randomize the collection
             Shuffle();
         }
 
-        private void updateAllClients(bool emptyHand)
-        {
-            CallbackInfo info = new CallbackInfo(cards.Count - cardIdx, numDecks, emptyHand);
 
-            foreach (ICallback cb in callbacks)
-                if (cb != null)
-                    cb.UpdateGui(info);
-        }
 
     } // end class
 

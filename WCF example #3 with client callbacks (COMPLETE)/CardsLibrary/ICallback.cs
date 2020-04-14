@@ -18,8 +18,17 @@ namespace CardsLibrary
     [ServiceContract]
     public interface ICallback
     {
+        //    [OperationContract(IsOneWay = true)]
+        //    void UpdateGui(CallbackInfo info);
         [OperationContract(IsOneWay = true)]
-        void Update(int numCards, int nextClient, bool gameOver);
+        void Update(int count, int numCards, int nextClient, bool gameOver);
+
+        [OperationContract]
+        void Check(int cardAsked);
+
+        [OperationContract]
+        void GoFish();
+
     }
 
 }

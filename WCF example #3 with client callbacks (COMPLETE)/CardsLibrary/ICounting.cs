@@ -18,6 +18,10 @@ namespace CardsLibrary
     [ServiceContract(CallbackContract = typeof(ICallback))]
     public interface ICounting
     {
+
+
+        [OperationContract]
+        void Shuffle();
         [OperationContract]
         int JoinGame();
         [OperationContract(IsOneWay = true)]
