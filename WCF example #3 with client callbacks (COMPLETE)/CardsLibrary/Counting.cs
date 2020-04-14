@@ -42,7 +42,20 @@ namespace CardsLibrary
 
         }
 
+        public Card Draw()
+        {
+            if (cardIdx >= cards.Count())
+                throw new IndexOutOfRangeException("The shoe is empty.");
 
+            Console.WriteLine($"Counting object Dealing {cards[cardIdx].ToString()}");
+
+            Card card = cards[cardIdx++];
+
+            // Initiate callbacks
+            updateAllClients();
+
+            return card;
+        }
 
         public void Shuffle()
         {
@@ -165,7 +178,7 @@ namespace CardsLibrary
         private void updateAllClients()
         {
             foreach (ICallback cb in callbacks.Values)
-                cb.Update(count, callbacks.Keys.ElementAt(clientIndex), gameOver);
+                cb.Update(count, cards.Count - cardIdx, callbacks.Keys.ElementAt(clientIndex), gameOver);
         }
 
     }
