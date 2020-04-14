@@ -1,0 +1,42 @@
+INFO-5060, Winter 2020
+
+Example:	CardLibrary WCF service with client callbacks (WCF example #3) - COMPLETE as of March 30!
+
+ *****************************************************************************
+ * THIS VERSION IS UPDATED from the March 23 version because there was a small 
+ * bug in the Draw() method which caused the Shoe to send the wrong card count 
+ * to the clients (one less than the correct value). 
+ ******************************************************************************
+
+This WCF example adds client callbacks to the previous example. These callbacks
+consist of a service contract (ICallback) that is implemented by the client and 
+called by the service. When implementing client callbacks make sure to use a binding 
+that supports "duplexing" (i.e. a WCF communication channel that supports callbacks). 
+We started this example using the BasicHttpBinding that doesn't support callbacks and 
+then switched to the wsDualHtppBinding which does support callbacks. Note that the 
+NetTcpBinding also supports callbacks.
+
+Here are the modules that have been added or modified since WCF example #2:
+- Modified Cards.cs in CardsLibrary to convert it to a DataContract
+- Added CallbackInfo as another DataContract in CardsLibrary which is used by the callback contract
+- Modified Shoe.cs in CardsLibrary to add and use the callback contract
+- Modified App.config in CardsServiceHost to use a different binding that supports callbacks
+- Modified App.config in CardsGuiClient to use a different binding that supports callbacks
+- Modified MainWindow.xaml.cs to implement that callback contract, to establish a duplex
+communication channel with the service (for callbacks) and to register the client with the 
+Shoe service to receive callback notifications
+
+How to Run the Example:
+1.	Make sure you are running Visual Studio via "Run as Administrator"
+2.	Click the "Start" button in the toolbar or select one of the "Start" options
+	in the Debug menu
+3.	To see the impact of the callbacks you should open a second client by right-
+	clicking on the client project in the Solution Explorer and selecting Debug > 
+	Start new instance. When you draw a card with one client you should see the 
+	"shoe count" updated in BOTH clients. Similarly if one client changes the number
+	of decks then both clients will be immediately updated to show the current number 
+	of decks.
+
+NOTE: THIS EXAMPLE IS NOW COMPLETE. The Shoe includes an UnregisterFromCallbacks() method that the client 
+calls when it is quitting which will remove the client's callback from the Shoe's callbacks collection.
+This avoids the issue where the application would hang after one instance of the client quits.
